@@ -1,10 +1,15 @@
 import { useState } from 'react'
+import { animals, names, starWars, uniqueNamesGenerator } from 'unique-names-generator'
 import { getHashValue, getStoreValue, setHashValue, setStoreValue } from './utils/helpers'
 
 
 function Home({ enterWorld }) {
   const [screen, setScreen] = useState(getHashValue('r') ? 'NAME' : 'LOBBY')
   const [playerName, setPlayerName] = useState(getStoreValue('player_name'))
+
+  const randomNameGenerator = () => {
+    setPlayerName(uniqueNamesGenerator({ dictionaries: [animals, starWars, names], length: 1 }));
+  }
 
   return (
     <div className='flex flex-row w-full'>
@@ -78,6 +83,7 @@ function Home({ enterWorld }) {
                 Next
               </button>
             </div>
+            <div className='text-center text-sm w-full mt-4 cursor-pointer text-blue-700 underline' onClick={randomNameGenerator}>Random name generator</div>
           </div>
         )}
         <div className='absolute bottom-5 text-xs gap-2 flex items-center'>

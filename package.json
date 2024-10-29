@@ -25,7 +25,8 @@
     "react": ">=18",
     "react-dom": "18.2.0",
     "socket.io-client": "^4.7.5",
-    "three": ">=0.133"
+    "three": ">=0.133",
+    "unique-names-generator": "^4.7.1"
   },
   "devDependencies": {
     "@gltf-transform/core": "^3.5.1",
