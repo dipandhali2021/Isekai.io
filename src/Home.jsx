@@ -1,6 +1,8 @@
 import { useState } from 'react'
+import React from 'react';
 import { animals, names, starWars, uniqueNamesGenerator } from 'unique-names-generator'
 import { getHashValue, getStoreValue, setHashValue, setStoreValue } from './utils/helpers'
+import styles from './button.module.scss';
 
 
 function Home({ enterWorld }) {
@@ -59,21 +61,27 @@ function Home({ enterWorld }) {
               <br />
               3. Click the Next button to continue.
             </p>
-            <div className='flex mt-80 lg:mt-20 items-center'>
+
+
+            <div className='flex mt-80 lg:mt-20 items-center' style={{display:'grid', alignItems:'center'}}>
               <div
                 className='border border-black border-1 rounded-xl h-12 flex  overflow-hidden py-2 px-6 bg-white '
                 style={{
-                  borderRight: 'none',
-                  borderRadius: '0.5rem 0 0 0.5rem',
+                  borderRadius: '0.5rem',
+                  borderRightWidth: 'medium',
+                  borderBottomWidth: 'medium',
+                  background: 'aliceblue'
                 }}
               >
                 <Input onChange={setPlayerName} onSubmit={() => {}} value={playerName} />
               </div>
               <button
-                className='text-white rounded-xl px-6 py-2  h-12  bg-gradient-to-r from-cyan-500 to-blue-500'
+                className={styles.btn}
                 style={{
-                  borderLeft: 'none',
-                  borderRadius: '0 0.5rem 0.5rem 0',
+                  //borderLeft: 'none',
+                  marginTop: '10px',
+                  width: '150px',
+                  marginLeft: '60px',
                 }}
                 onClick={() => {
                   setStoreValue('player_name', playerName)
@@ -101,7 +109,7 @@ const Input = ({ onSubmit, onChange, value }) => (
     <input
       maxLength={300}
       placeholder='write your name'
-      className='flex-1 min-w-0 rounded-xl bg-transparent focus:outline-none focus:border-none input-box text5 font-bold'
+      className='flex-1 min-w-0 rounded-xl bg-transparent text-white focus:outline-none focus:border-none input-box text5 font-bold'
       type='text'
       onChange={e => {
         onChange(e.target.value)
