@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { animals, names, starWars, uniqueNamesGenerator } from 'unique-names-generator'
 import { getHashValue, getStoreValue, setHashValue, setStoreValue } from './utils/helpers'
 
-
 function Home({ enterWorld }) {
   const [screen, setScreen] = useState(getHashValue('r') ? 'NAME' : 'LOBBY')
   const [playerName, setPlayerName] = useState(getStoreValue('player_name'))
@@ -14,20 +13,16 @@ function Home({ enterWorld }) {
   return (
     <div className='flex flex-row w-full'>
       <div className='hidden lg:w-6/12 lg:flex'>
-        {' '}
-        <img
-          src='/images/group.png'
-          className='h-screen'
-        />
+        <img src='/images/group.png' className='h-screen' />
       </div>
-      <div className='md:top-0 bottom-0 left-0 right-0 mx-auto lg:flex flex-col  w-6/12 items-center justify-center h-screen'>
+      <div className='md:top-0 bottom-0 left-0 right-0 mx-auto lg:flex flex-col w-6/12 items-center justify-center h-screen'>
         <img
-          src='/images//logo.svg'
+          src='/images/logo.svg'
           alt='img'
           className='size-72 h-40 absolute md:top-12 lg:top-2 pt-20 '
         />
         {screen === 'LOBBY' && (
-          <div className='flex h-full  flex-col items-center justify-center '>
+          <div className='flex h-full flex-col items-center justify-center '>
             <p className='hidden lg:flex font-mono mt-1 px-32 ' style={{ fontFamily: 'Inter Tight' }}>
               Welcome to Isekai.io, a virtual world inspired by the popular "Isekai" genre. Here, you can escape the harsh realities of your
               world and build a new life anonymously. Our project aims to provide a safe and engaging space for users to connect, build
@@ -36,7 +31,7 @@ function Home({ enterWorld }) {
               world!
             </p>
             <button
-              className='text-gray-900  bg-gradient-to-r from-cyan-500 to-blue-500 font-medium rounded-lg px-5 py-2.5 text-center inline-flex items-center m-4'
+              className='text-gray-900 bg-gradient-to-r from-cyan-500 to-blue-500 font-medium rounded-lg px-5 py-2.5 text-center inline-flex items-center m-4'
               onClick={() => {
                 setHashValue('r', 'R' + 'ROOM')
                 setScreen('NAME')
@@ -61,57 +56,64 @@ function Home({ enterWorld }) {
             </p>
             <div className='flex mt-80 lg:mt-20 items-center'>
               <div
-                className='border border-black border-1 rounded-xl h-12 flex  overflow-hidden py-2 px-6 bg-white '
-                style={{
-                  borderRight: 'none',
-                  borderRadius: '0.5rem 0 0 0.5rem',
-                }}
-              >
-                <Input onChange={setPlayerName} onSubmit={() => {}} value={playerName} />
-              </div>
-              <button
-                className='text-white rounded-xl px-6 py-2  h-12  bg-gradient-to-r from-cyan-500 to-blue-500'
-                style={{
-                  borderLeft: 'none',
-                  borderRadius: '0 0.5rem 0.5rem 0',
-                }}
-                onClick={() => {
-                  setStoreValue('player_name', playerName)
-                  enterWorld()
-                }}
-              >
-                Next
-              </button>
+              className='border border-black border-1 rounded-xl h-12 flex overflow-hidden py-2 px-6 bg-white '
+              style={{
+                borderRight: 'none',
+                borderRadius: '0.5rem 0 0 0.5rem',
+              }}
+            >
+              <Input onChange={setPlayerName} onSubmit={() => {}} value={playerName} />
             </div>
-            <div className='text-center text-sm w-full mt-4 cursor-pointer text-blue-700 underline' onClick={randomNameGenerator}>Random name generator</div>
+            <button
+              className='text-white rounded-xl px-6 py-2 h-12 bg-gradient-to-r from-cyan-500 to-blue-500'
+              style={{
+                borderLeft: 'none',
+                borderRadius: '0 0.5rem 0.5rem 0',
+              }}
+              onClick={() => {
+                setStoreValue('player_name', playerName)
+                enterWorld()
+              }}
+            >
+              Next
+            </button>
           </div>
-        )}
-        <div className='absolute bottom-5 text-xs gap-2 flex items-center'>
-          <p className='text-xs mt-1'>Get ready to dive into virtual world</p>
+          <div 
+            className='text-center text-sm mt-4 cursor-pointer text-white rounded-xl px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-500 inline-flex items-center'
+            onClick={randomNameGenerator} 
+            style={{ letterSpacing: '-0.5px' }}
+          >
+            <span role="img" aria-label="dice" className="mr-2">🎲</span> {/* Icon xúc xắc */}
+            Choose a random name
+          </div>
         </div>
+      )}
+      <div className='absolute bottom-5 text-xs gap-2 flex items-center'>
+        <p className='text-xs mt-1'>Get ready to dive into virtual world</p>
       </div>
     </div>
-  )
+  </div>
+)
 }
 
 export default Home
 
 const Input = ({ onSubmit, onChange, value }) => (
-  <>
-    <input
-      maxLength={300}
-      placeholder='write your name'
-      className='flex-1 min-w-0 rounded-xl bg-transparent focus:outline-none focus:border-none input-box text5 font-bold'
-      type='text'
-      onChange={e => {
-        onChange(e.target.value)
-      }}
-      onKeyDown={e => {
-        e.stopPropagation() // avoids moving character while typing
-        e.code === 'Enter' && onSubmit()
-        e.code === 'Escape' && e.target.blur()
-      }}
-      value={value}
-    />
-  </>
+<>
+  <input
+    maxLength={300}
+    placeholder='write your name'
+    className='flex-1 min-w-0 rounded-xl bg-transparent focus:outline-none focus:border-none input-box text5 font-bold'
+    type='text'
+    onChange={e => {
+      onChange(e.target.value)
+    }}
+    onKeyDown={e => {
+      e.stopPropagation() // avoids moving character while typing
+      e.code === 'Enter' && onSubmit()
+      e.code === 'Escape' && e.target.blur()
+    }}
+    value={value}
+  />
+</>
 )
