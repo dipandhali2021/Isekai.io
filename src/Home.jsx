@@ -10,7 +10,10 @@ function Home({ enterWorld }) {
   const randomNameGenerator = () => {
     setPlayerName(uniqueNamesGenerator({ dictionaries: [animals, starWars, names], length: 1 }));
   }
-
+  const handleEnterWorld = () => {
+    setStoreValue('player_name', playerName)
+    enterWorld()
+  }
   return (
     <div className='flex flex-row w-full'>
       <div className='hidden lg:w-6/12 lg:flex'>
@@ -67,7 +70,7 @@ function Home({ enterWorld }) {
                   borderRadius: '0.5rem 0 0 0.5rem',
                 }}
               >
-                <Input onChange={setPlayerName} onSubmit={() => {}} value={playerName} />
+                <Input onChange={setPlayerName} onSubmit={handleEnterWorld} value={playerName} />
               </div>
               <button
                 className='text-white rounded-xl px-6 py-2  h-12  bg-gradient-to-r from-cyan-500 to-blue-500'
@@ -75,10 +78,7 @@ function Home({ enterWorld }) {
                   borderLeft: 'none',
                   borderRadius: '0 0.5rem 0.5rem 0',
                 }}
-                onClick={() => {
-                  setStoreValue('player_name', playerName)
-                  enterWorld()
-                }}
+                onClick={handleEnterWorld}
               >
                 Next
               </button>
@@ -108,8 +108,12 @@ const Input = ({ onSubmit, onChange, value }) => (
       }}
       onKeyDown={e => {
         e.stopPropagation() // avoids moving character while typing
-        e.code === 'Enter' && onSubmit()
-        e.code === 'Escape' && e.target.blur()
+        if (e.key === 'Enter') {
+          onSubmit()
+        }
+        if (e.code === 'Escape') {
+          e.target.blur()
+        }
       }}
       value={value}
     />
