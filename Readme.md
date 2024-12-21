@@ -15,3 +15,32 @@ Isekai.io is a virtual world inspired by the popular "Isekai" genre, where users
 ## Join the Escape!
 
 Isekai Escape aims to provide a unique and valuable online experience. We welcome your feedback and potential contributions to build a thriving anonymous community together.
+
+
+
+## Local Development
+
+To get started with this project, follow these steps:
+
+1. Clone the repository:
+```bash
+https://github.com/dipandhali2021/Isekai.io.git
+```
+
+2.	Install the dependencies:
+```bash
+npm install
+```
+
+3.	Start the development server:
+```bash
+npm run dev
+```
+
+Open http://localhost:3000 in your browser to view the website.
+
+
+
+
+
+
