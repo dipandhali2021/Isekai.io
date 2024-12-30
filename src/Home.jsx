@@ -11,11 +11,11 @@ function Home({ enterWorld }) {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row w-full h-screen bg-gray-50">
+    <div className="flex flex-col lg:flex-row w-full h-screen bg-white">
       {/* Image Section */}
-      <div className="w-full lg:w-6/12 flex items-center justify-center bg-gray-100">
+      <div className="w-full lg:w-6/12 flex items-center justify-center ">
         <img
-          src="/images/group.png"
+          src="/images/logo.jpg"
           alt="Group Illustration"
           className="w-3/4 lg:w-full h-auto object-contain max-h-[50vh] lg:max-h-screen mb-6 lg:mb-0"
         />
