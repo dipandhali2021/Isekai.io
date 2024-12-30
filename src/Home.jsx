@@ -1,119 +1,103 @@
-import { useState } from 'react'
-import { animals, names, starWars, uniqueNamesGenerator } from 'unique-names-generator'
-import { getHashValue, getStoreValue, setHashValue, setStoreValue } from './utils/helpers'
+import { useState } from 'react';
+import { animals, names, starWars, uniqueNamesGenerator } from 'unique-names-generator';
+import { getHashValue, getStoreValue, setHashValue, setStoreValue } from './utils/helpers';
 
 function Home({ enterWorld }) {
-  const [screen, setScreen] = useState(getHashValue('r') ? 'NAME' : 'LOBBY')
-  const [playerName, setPlayerName] = useState(getStoreValue('player_name'))
+  const [screen, setScreen] = useState(getHashValue('r') ? 'NAME' : 'LOBBY');
+  const [playerName, setPlayerName] = useState(getStoreValue('player_name'));
 
   const randomNameGenerator = () => {
     setPlayerName(uniqueNamesGenerator({ dictionaries: [animals, starWars, names], length: 1 }));
-  }
+  };
 
   return (
-    <div className='flex flex-row w-full'>
-      <div className='hidden lg:w-6/12 lg:flex'>
-        <img src='/images/group.png' className='h-screen' />
-      </div>
-      <div className='md:top-0 bottom-0 left-0 right-0 mx-auto lg:flex flex-col w-6/12 items-center justify-center h-screen'>
+    <div className="flex flex-col lg:flex-row w-full h-screen bg-gray-50">
+      {/* Image Section */}
+      <div className="w-full lg:w-6/12 flex items-center justify-center bg-gray-100">
         <img
-          src='/images/logo.svg'
-          alt='img'
-          className='size-72 h-40 absolute md:top-12 lg:top-2 pt-20 '
+          src="/images/group.png"
+          alt="Group Illustration"
+          className="w-3/4 lg:w-full h-auto object-contain max-h-[50vh] lg:max-h-screen mb-6 lg:mb-0"
         />
+      </div>
+
+      {/* Content Section */}
+      <div className="flex flex-col w-full lg:w-6/12 items-center justify-center px-6 lg:px-16">
+        <img
+          src="/images/logo.svg"
+          alt="Isekai.io Logo"
+          className="h-20 lg:h-24 mb-4 "
+         
+        />
+
+        {/* LOBBY Screen */}
         {screen === 'LOBBY' && (
-          <div className='flex h-full flex-col items-center justify-center '>
-            <p className='hidden lg:flex font-mono mt-1 px-32 ' style={{ fontFamily: 'Inter Tight' }}>
-              Welcome to Isekai.io, a virtual world inspired by the popular "Isekai" genre. Here, you can escape the harsh realities of your
-              world and build a new life anonymously. Our project aims to provide a safe and engaging space for users to connect, build
-              communities, and forge meaningful relationships without revealing their real-world identities. Enjoy our features like
-              anonymity, community building, and a virtual chat room where you can interact with others. Get ready to dive into the virtual
-              world!
+          <div className="text-center">
+            <p className="text-gray-700 text-sm leading-relaxed mb-6">
+              Welcome to Isekai.io, a virtual world inspired by the popular "Isekai" genre. Build a
+              new life anonymously, connect with others, and explore our unique features.
             </p>
             <button
-              className='text-gray-900 bg-gradient-to-r from-cyan-500 to-blue-500 font-medium rounded-lg px-5 py-2.5 text-center inline-flex items-center m-4'
+              className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-medium rounded-lg px-6 py-3 shadow hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 transition"
               onClick={() => {
-                setHashValue('r', 'R' + 'ROOM')
-                setScreen('NAME')
+                setHashValue('r', 'R' + 'ROOM');
+                setScreen('NAME');
               }}
             >
-              Enter the world
+              Enter the World
             </button>
           </div>
         )}
+
+        {/* NAME Screen */}
         {screen === 'NAME' && (
-          <div className='flex flex-col items-center'>
-            <p className='px-32 hidden lg:flex'>
-              Welcome to Isekai.io! In this virtual world, you can create a new life and explore endless possibilities. Please follow the
-              instructions below to get started:
-              <br />
-              <br />
-              1. Choose a unique name that represents your virtual identity.
-              <br />
-              2. Enter your chosen name in the input box below.
-              <br />
-              3. Click the Next button to continue.
+          <div className="w-full text-center">
+            <p className="text-gray-700 text-sm leading-relaxed mb-4">
+              Create your virtual identity by choosing a unique name and clicking Next.
             </p>
-            <div className='flex mt-80 lg:mt-20 items-center'>
-              <div
-              className='border border-black border-1 rounded-xl h-12 flex overflow-hidden py-2 px-6 bg-white '
-              style={{
-                borderRight: 'none',
-                borderRadius: '0.5rem 0 0 0.5rem',
-              }}
-            >
-              <Input onChange={setPlayerName} onSubmit={() => {}} value={playerName} />
+            <div className="flex items-center justify-center gap-2">
+              <div className="flex-1 flex items-center border rounded-lg bg-white shadow">
+                <Input onChange={setPlayerName} value={playerName} />
+              </div>
+              <button
+                className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-medium px-6 py-2 rounded-lg shadow hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 transition"
+                onClick={() => {
+                  setStoreValue('player_name', playerName);
+                  enterWorld();
+                }}
+              >
+                Next
+              </button>
             </div>
             <button
-              className='text-white rounded-xl px-6 py-2 h-12 bg-gradient-to-r from-cyan-500 to-blue-500'
-              style={{
-                borderLeft: 'none',
-                borderRadius: '0 0.5rem 0.5rem 0',
-              }}
-              onClick={() => {
-                setStoreValue('player_name', playerName)
-                enterWorld()
-              }}
+              className="mt-4 text-cyan-600 hover:text-cyan-800 font-medium flex items-center justify-center gap-2 focus:outline-none"
+              onClick={randomNameGenerator}
             >
-              Next
+              <span role="img" aria-label="dice">
+                🎲
+              </span>
+              Generate Random Name
             </button>
           </div>
-          <div 
-            className='text-center text-sm mt-4 cursor-pointer text-white rounded-xl px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-500 inline-flex items-center'
-            onClick={randomNameGenerator} 
-            style={{ letterSpacing: '-0.5px' }}
-          >
-            <span role="img" aria-label="dice" className="mr-2">🎲</span> {/* Icon xúc xắc */}
-            Choose a random name
-          </div>
-        </div>
-      )}
-      <div className='absolute bottom-5 text-xs gap-2 flex items-center'>
-        <p className='text-xs mt-1'>Get ready to dive into virtual world</p>
+        )}
+
+        <p className="absolute bottom-5 text-gray-500 text-xs text-center">
+          Get ready to dive into the virtual world
+        </p>
       </div>
     </div>
-  </div>
-)
+  );
 }
 
-export default Home
+export default Home;
 
-const Input = ({ onSubmit, onChange, value }) => (
-<>
+const Input = ({ onChange, value }) => (
   <input
+    type="text"
     maxLength={300}
-    placeholder='write your name'
-    className='flex-1 min-w-0 rounded-xl bg-transparent focus:outline-none focus:border-none input-box text5 font-bold'
-    type='text'
-    onChange={e => {
-      onChange(e.target.value)
-    }}
-    onKeyDown={e => {
-      e.stopPropagation() // avoids moving character while typing
-      e.code === 'Enter' && onSubmit()
-      e.code === 'Escape' && e.target.blur()
-    }}
+    placeholder="Enter your name"
     value={value}
+    onChange={(e) => onChange(e.target.value)}
+    className="flex-1 px-4 py-2 text-gray-800 placeholder-gray-400 bg-transparent focus:outline-none"
   />
-</>
-)
+);
